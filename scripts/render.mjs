@@ -13,7 +13,7 @@ const PROJECTS = [
   {
     slug: 'subtitle', repo: 'fancydirty/subtitle-scout', size: 'small', accentKey: 'accentAlt',
     title: 'Subtitle Scout', cjk: '',
-    blurb: 'Finds subtitles for your library, judges whether each candidate belongs to the exact episode, and installs the one that fits.',
+    blurb: 'Finds subtitles for your library and installs only the one that matches the exact episode.',
   },
 ];
 
