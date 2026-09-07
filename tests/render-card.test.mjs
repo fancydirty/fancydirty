@@ -51,3 +51,16 @@ test('license 为空时不渲染分隔符残留', () => {
 test('未知 size 抛错', () => {
   assert.throws(() => renderCard({ ...mediary, mode: 'dark', size: 'huge' }), /unknown size/i);
 });
+
+test('描述超过三行时截断并补省略号,不留半截标点', () => {
+  const svg = renderCard({
+    ...mediary,
+    mode: 'light',
+    size: 'small',
+    blurb: 'Finds subtitles for your library, judges whether each candidate belongs to the exact cut you own, and refuses to guess when it cannot tell them apart at all.',
+  });
+  const bodyLines = [...svg.matchAll(/y="(?:96|116|136)"[^>]*>([^<]*)</g)].map((m) => m[1]);
+  assert.equal(bodyLines.length, 3);
+  assert.ok(bodyLines[2].endsWith('\u2026'), `末行应以省略号收尾,实际: ${bodyLines[2]}`);
+  assert.ok(!/[\s,;.]\u2026$/.test(bodyLines[2]), '省略号前不应残留标点或空格');
+});

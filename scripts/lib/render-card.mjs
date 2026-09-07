@@ -36,7 +36,10 @@ export function renderCard({ title, cjk, blurb, stats, mode, size, accentKey = '
     parts.push(text({ x: 26, y: 66, size: 13, weight: 400, fill: t.muted, content: cjk }));
   }
 
-  wrap(blurb, charsPerLine).slice(0, 3).forEach((line, i) => {
+  const lines = wrap(blurb, charsPerLine);
+  const shown = lines.slice(0, 3);
+  if (lines.length > 3) shown[2] = shown[2].replace(/[\s,;.]+$/, '') + '…';
+  shown.forEach((line, i) => {
     parts.push(text({ x: 26, y: 96 + i * 20, size: 13, weight: 400, fill: t.muted, content: line }));
   });
 
